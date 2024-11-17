@@ -1,11 +1,7 @@
 <template>
     <DialogRoot>
         <DialogTrigger>
-            <button v-if="isHome" class="transition-all hover:opacity-85 text-sm"
-                :class="isScrolling ? 'text-primary' : 'text-white'">
-                Đăng ký
-            </button>
-            <button class="transition-all hover:opacity-85 text-sm text-primary" v-if="!isHome">
+            <button class="transition-all hover:opacity-85 text-sm text-primary">
                 Đăng ký
             </button>
         </DialogTrigger>
@@ -148,8 +144,6 @@ import { useLoginType, HAS_VIOLATION, DEFAULT, NO_VIOLATION } from '@/stores/log
 
 const loginType = useLoginType();
 const isScrolling = ref(false);
-const route = useRoute();
-const isHome = computed(() => route.path === '/');
 
 const handleScroll = () => {
     if (window.scrollY === 0) {

@@ -89,22 +89,7 @@
                         Nhận thông báo phạt nguội nhanh chóng và chính xác
                     </h2>
                     <div class="bg-white/20 lg:max-w-[440px] rounded-2xl p-6 flex flex-col items-center">
-                        <svg width="80px" height="80px" viewBox="-1.6 -1.6 19.20 19.20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" strokeWidth="0.00016" class="mb-2">
-                            <g id="SVGRepo_bgCarrier" strokeWidth="0">
-                                <rect x="-1.6" y="-1.6" width="19.20" height="19.20" rx="9.6" fill="#ffffff"
-                                    strokeWidth="0"></rect>
-                            </g>
-                            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                {" "}
-                                <path
-                                    d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z"
-                                    fill="#2c6672"></path>{" "}
-                                <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z"
-                                    fill="#2c6672"></path>{" "}
-                            </g>
-                        </svg>
+                        <img src="/images/avatar.png" class="w-28 mb-2" alt="">
                         <h1
                             class="mb-3 text-center font-bold text-4xl bg-gradient-to-r from-[#89a4d5] to-[#da9956] bg-clip-text text-transparent">
                             30H-XXX.XX
@@ -131,28 +116,13 @@
                         Nhận thông báo phạt nguội nhanh chóng và chính xác
                     </h2>
                     <div class="bg-white/20 lg:max-w-[440px] rounded-2xl p-6 flex flex-col items-center">
-                        <svg width="80px" height="80px" viewBox="-1.6 -1.6 19.20 19.20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" strokeWidth="0.00016" class="mb-2">
-                            <g id="SVGRepo_bgCarrier" strokeWidth="0">
-                                <rect x="-1.6" y="-1.6" width="19.20" height="19.20" rx="9.6" fill="#ffffff"
-                                    strokeWidth="0"></rect>
-                            </g>
-                            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                {" "}
-                                <path
-                                    d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z"
-                                    fill="#2c6672"></path>{" "}
-                                <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z"
-                                    fill="#2c6672"></path>{" "}
-                            </g>
-                        </svg>
+                        <img src="/images/avatar.png" class="w-28 mb-2" alt="">
                         <h1
                             class="mb-3 text-center font-bold text-4xl bg-gradient-to-r from-[#89a4d5] to-[#da9956] bg-clip-text text-transparent">
                             30H-XXX.XX
                         </h1>
                         <p class="text-center text-white mb-5">
-                            Bạn đang có <span class="text-red-600 font-bold">01</span>{" "}
+                            Bạn đang có <span class="text-red-600 font-bold">01</span>
                             thông báo vi phạm!
                         </p>
                         <button
@@ -211,7 +181,7 @@
                                 </div>
                             </div>
                             <p class="line-clamp-4 mb-2">{{ news[0].description }}</p>
-                            <button class="flex items-center text-[#0f8dd4]">
+                            <button class="flex items-center text-[#0f8dd4]" @click="router.push('/tin-tuc/detail')">
                                 Xem thêm
                                 <LucideChevronRight class="h-4" />
                             </button>
@@ -249,9 +219,10 @@
                             <p class="line-clamp-3 mb-2 text-xs">
                                 {{ item.description }}
                             </p>
-                            <button class="flex items-center text-xs text-[#0f8dd4]">
+                            <button class="flex items-center text-xs text-[#0f8dd4]"
+                                @click="router.push('/tin-tuc/detail')">
                                 Xem thêm
-                                <ChevronRight class="h-4" />
+                                <LucideChevronRight class="h-4" />
                             </button>
                         </div>
                     </div>
@@ -361,6 +332,7 @@ import { useLoginType, HAS_VIOLATION, DEFAULT, NO_VIOLATION } from '@/stores/log
 
 const isDesktop = useMediaQuery('(min-width: 960px)')
 const loginType = useLoginType()
+const router = useRouter()
 
 const news = [
     {

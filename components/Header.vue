@@ -1,9 +1,27 @@
 <script setup lang="jsx">
 import { useLoginType, HAS_VIOLATION, DEFAULT, NO_VIOLATION } from '@/stores/loginStore';
 import { ref, onMounted, onUnmounted } from 'vue';
+import {
+  DropdownMenuArrow,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuItemIndicator,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuRoot,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from 'radix-vue'
 
 const isDesktop = useMediaQuery('(min-width: 960px)')
 const loginType = useLoginType();
+const router = useRouter()
 const menu = ref();
 
 const isScrolling = ref(false);
@@ -68,121 +86,126 @@ const toggle = (event) => {
   menu.value.toggle(event);
 };
 
+const userMenuOpen = ref(false)
+const route = useRoute()
+const isHome = computed(() => route.path === '/');
 </script>
 
 <template>
-  <div class="fixed w-full top-0 transition-all z-20">
-    <div class="container lg:max-w-[1241px] py-7">
-      <div class="flex justify-between items-center">
-        <div>
-          <NuxtLink to="/" class="text-base">
-            <img :src="isDesktop ? '/images/logo.png' : '/images/logo-black.png'" alt="" class="max-w-[250px]" />
-          </NuxtLink>
-        </div>
-        <div class="flex items-center gap-10">
+  <ClientOnly>
+    <div :class="[
+      'fixed w-screen transition-all top-0 z-30',
+      isScrolling ? 'bg-white' : 'bg-transparent'
+    ]">
+      <div class="container lg:max-w-[1241px] py-7">
+        <div class="flex justify-between items-center">
           <div>
-            <div class="flex items-center gap-10">
-              <NuxtLink to="/" class="text-base hover:opacity-85 transition-all uppercase text-white">
-                Trang chủ
-              </NuxtLink>
-              <NuxtLink to="/tra-cuu-phat-nguoi" class="text-base hover:opacity-85 transition-all uppercase text-white">
-                Tra cứu phạt nguội
-              </NuxtLink>
-              <NuxtLink to="/tra-cuu-diem-phat-nguoi"
-                class="text-base hover:opacity-85 transition-all uppercase text-white">
-                Điểm phạt nguội
-              </NuxtLink>
-              <NuxtLink to="/tin-tuc" class="text-base hover:opacity-85 transition-all uppercase text-white">
-                Tin tức
-              </NuxtLink>
-              <div class="flex justify-center" v-if="loginType.loginType === HAS_VIOLATION">
-                <OverlayBadge value="1" severity="danger">
-                  <Button type="button" variant="link" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu"
-                    class="p-0">
-                    <img src="/images/avatar.png" className="h-10 border-[#285398] border border-solid rounded-full"
-                      alt="">
-                  </Button>
-                </OverlayBadge>
-                <Menu :model="itemsViolation" :popup="true" ref="menu" id="overlay_menu">
-                  <template #item="{ item, props }">
-                    <NuxtLink v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                      <span v-ripple :href="href" v-bind="props.action" @click="navigate">
-                        <component :is="item.icon" class="w-5" />
-                        <span>{{ item.label }}</span>
-                      </span>
-                    </NuxtLink>
-                    <NuxtLink v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
-                      <component :is="item.icon" class="w-5" />
-                      <span>{{ item.label }}</span>
-                    </NuxtLink>
-                  </template>
-                </Menu>
-              </div>
-              <div class="flex justify-center" v-if="loginType.loginType === NO_VIOLATION">
-                <Button type="button" variant="link" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu"
-                  class="p-0">
-                  <img src="/images/avatar.png" className="h-10 border-[#285398] border border-solid rounded-full"
-                    alt="">
-                </Button>
-                <Menu :model="itemsNoViolation" :popup="true" ref="menu" id="overlay_menu">
-                  <template #item="{ item, props }">
-                    <NuxtLink v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                      <span v-ripple :href="href" v-bind="props.action" @click="navigate">
-                        <component :is="item.icon" class="w-5" />
-                        <span>{{ item.label }}</span>
-                      </span>
-                    </NuxtLink>
-                    <NuxtLink v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
-                      <component :is="item.icon" class="w-5" />
-                      <span>{{ item.label }}</span>
-                    </NuxtLink>
-                  </template>
-                </Menu>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-end gap-2" v-if="loginType.loginType === DEFAULT">
-              <RegisterDialog />
-              <span class="text-white">
-                |
-              </span>
-              <LoginDialog />
-            </div>
-            <!-- )} -->
+            <NuxtLink to="/" class="text-base">
+              <img :src="`/images/${!isHome || isScrolling ? 'logo-black' : 'logo'}.png`" alt="" class="max-w-[250px]" />
+            </NuxtLink>
           </div>
-          <!-- {loginType === NO_VIOLATION && (
-              <>
-                <DropdownMenu.Root>
-                  <DropdownMenu.Trigger>
-                    <Button
-                      variant="soft"
-                      radius="full"
-                      class="!w-10 !h-10 hover:cursor-pointer border-[#285398] border border-solid !p-0 relative"
-                    >
-                      <img src="/images/avatar.png" class="border-[#285398] border border-solid rounded-full" alt="" />
-                    </Button>
-                  </DropdownMenu.Trigger>
-                  <DropdownMenu.Content align="end">
-                    <DropdownMenu.Item
-                      class="hover:cursor-pointer"
-                      onClick={() => router.push("/tai-khoan")}
-                    >
-                      <User class="w-5" />
-                      Tài khoản
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Separator />
-                    <DropdownMenu.Item class="hover:cursor-pointer">
-                      <LogOut class="w-5" />
-                      Đăng xuất
-                    </DropdownMenu.Item>
-                  </DropdownMenu.Content>
-                </DropdownMenu.Root>
-              </>
-            )} -->
+          <div class="flex items-center gap-10">
+            <div>
+              <div class="flex items-center gap-10">
+                <NuxtLink to="/" class="text-base hover:opacity-85 transition-all uppercase"
+                  :class="`${!isScrolling ? 'text-white' : 'text-primary'}`">
+                  Trang chủ
+                </NuxtLink>
+                <NuxtLink to="/tra-cuu-phat-nguoi" class="text-base hover:opacity-85 transition-all uppercase"
+                  :class="`${!isScrolling ? 'text-white' : 'text-primary'}`">
+                  Tra cứu phạt nguội
+                </NuxtLink>
+                <NuxtLink to="/tra-cuu-diem-phat-nguoi" class="text-base hover:opacity-85 transition-all uppercase"
+                  :class="`${!isScrolling ? 'text-white' : 'text-primary'}`">
+                  Điểm phạt nguội
+                </NuxtLink>
+                <NuxtLink to="/tin-tuc" class="text-base hover:opacity-85 transition-all uppercase"
+                  :class="`${!isScrolling ? 'text-white' : 'text-primary'}`">
+                  Tin tức
+                </NuxtLink>
+                <div class="flex justify-center" v-if="loginType.loginType === HAS_VIOLATION">
+                  <DropdownMenuRoot v-model:open="userMenuOpen" class="z-[199]">
+                    <DropdownMenuTrigger
+                      class="rounded-full relative h-10 w-10 inline-flex items-center justify-center outline-none hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black"
+                      aria-label="Customise options">
+                      <img src="/images/avatar.png" class="border-primary border-[1px] border-solid rounded-full" alt="">
+                      <div
+                        class="absolute flex items-center justify-center flex-col w-5 h-5 z-20 text-white text-sm -right-2 -top-1 bg-red-600 rounded-full">
+                        1
+                      </div>
+                    </DropdownMenuTrigger>
+
+                    <DropdownMenuPortal>
+                      <DropdownMenuContent
+                        class="outline-none z-[199] bg-white rounded-lg p-[5px] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                        :side-offset="5">
+                        <DropdownMenuItem value="New Tab"
+                          class="group my-2 transition-all hover:opacity-50 text-[13px] hover:cursor-pointer leading-none text-red-500 gap-2 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                          @click="router.push('/tra-cuu-phat-nguoi')">
+                          <LucideTriangleAlert class="w-4" />
+                          Thông báo: Bạn có 01 lỗi vi phạm
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator class="h-[1px] bg-black/30 m-[5px]" />
+                        <DropdownMenuItem value="New Tab"
+                          class="group my-2 transition-all hover:opacity-50 text-[13px] hover:cursor-pointer leading-none text-black gap-2 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                          @click="router.push('/tai-khoan')">
+                          <LucideUser class="w-4" />
+                          Tài khoản
+                        </DropdownMenuItem>
+                        <DropdownMenuItem value="New Tab"
+                          class="group my-2 transition-all hover:opacity-50 text-[13px] hover:cursor-pointer leading-none text-black gap-2 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                          @click="loginType.toggleLoginType(DEFAULT)">
+                          <LucideLogOut class="w-4" />
+                          Đăng xuất
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenuPortal>
+                  </DropdownMenuRoot>
+
+                </div>
+                <div class="flex justify-center" v-if="loginType.loginType === NO_VIOLATION">
+                  <DropdownMenuRoot v-model:open="userMenuOpen" class="z-[199]">
+                    <DropdownMenuTrigger
+                      class="rounded-full relative h-10 w-10 inline-flex items-center justify-center outline-none hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black"
+                      aria-label="Customise options">
+                      <img src="/images/avatar.png" class="border-primary border-solid border-[1px] rounded-full" alt="">
+                    </DropdownMenuTrigger>
+
+                    <DropdownMenuPortal>
+                      <DropdownMenuContent
+                        class="outline-none z-[199] bg-white rounded-lg p-[5px] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                        :side-offset="5">
+                        <DropdownMenuItem value="New Tab"
+                          class="group my-2 transition-all hover:opacity-50 text-[13px] hover:cursor-pointer leading-none text-black gap-2 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                          @click="router.push('/tai-khoan')">
+                          <LucideUser class="w-4" />
+                          Tài khoản
+                        </DropdownMenuItem>
+                        <DropdownMenuItem value="New Tab"
+                          class="group my-2 transition-all hover:opacity-50 text-[13px] hover:cursor-pointer leading-none text-black gap-2 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                          @click="loginType.toggleLoginType(DEFAULT)">
+                          <LucideLogOut class="w-4" />
+                          Đăng xuất
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenuPortal>
+                  </DropdownMenuRoot>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-end gap-2" v-if="loginType.loginType === DEFAULT">
+                <RegisterDialog />
+                <span :class="`${!isScrolling ? 'text-white' : 'text-primary'}`">
+                  |
+                </span>
+                <LoginDialog />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <style scoped></style>
