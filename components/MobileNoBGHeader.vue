@@ -66,28 +66,51 @@ const toggleState = ref(false)
                             </NuxtLink>
                         </div>
                         <div class="flex items-center gap-3">
-                            <DropdownMenuRoot class="z-[199]" v-model:open="toggleState" v-if="loginType.loginType === NO_VIOLATION">
+                            <DropdownMenuRoot class="top-3 z-[199]" v-model:open="toggleState"
+                                v-if="loginType.loginType === NO_VIOLATION">
                                 <DropdownMenuTrigger
-                                    class="rounded-full !w-10 !h-10 !p-0 relative inline-flex items-center justify-center text-grass11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black"
+                                    class="rounded-full !w-10 !h-10 !p-0 relative inline-flex items-center justify-center bg-white outline-none"
                                     aria-label="Customise options">
-                                    <img src="/images/avatar.png" class="rounded-full border-solid border-[1px] border-[#285398]" alt="" />
+                                    <img src="/images/avatar.png"
+                                        class="rounded-full border-solid border-[1px] border-[#285398]" alt="" />
+                                </DropdownMenuTrigger>
+                                <DropdownMenuPortal>
+                                    <DropdownMenuContent class="z-[199] bg-white flex flex-col gap-3 p-2 rounded-lg">
+                                        <DropdownItem @click="navigateTo('/tai-khoan')" class="flex items-center gap-2">
+                                            <LucideUser class="w-5" /> Tài khoản
+                                        </DropdownItem>
+                                        <DropdownItem class="flex items-center gap-2"
+                                            @click="loginType.toggleLoginType(DEFAULT)">
+                                            <LucideLogOut class="w-5" /> Đăng xuất
+                                        </DropdownItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenuPortal>
+                            </DropdownMenuRoot>
+                            <DropdownMenuRoot class="top-3 z-[199]" v-model:open="toggleState"
+                                v-if="loginType.loginType === HAS_VIOLATION">
+                                <DropdownMenuTrigger
+                                    class="rounded-full !w-10 !h-10 !p-0 relative inline-flex items-center justify-center bg-white outline-none"
+                                    aria-label="Customise options">
+                                    <img src="/images/avatar.png"
+                                        class="rounded-full border-solid border-[1px] border-[#285398]" alt="" />
                                     <div v-if="loginType.loginType === HAS_VIOLATION"
                                         class="absolute -top-1 -right-2 bg-red-600 text-white text-sm w-5 h-5 rounded-full flex items-center justify-center">
                                         1
                                     </div>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuPortal>
-                                    <DropdownMenuContent>
+                                    <DropdownMenuContent class="z-[199] bg-white flex flex-col gap-3 p-2 rounded-lg">
                                         <DropdownItem v-if="loginType.loginType === HAS_VIOLATION"
-                                            @click="navigateTo('/tra-cuu-phat-nguoi')" class="text-red-600">
-                                            <AlertCircle class="w-5" /> Thông báo: Có 01 lỗi vi phạm !
+                                            @click="navigateTo('/tra-cuu-phat-nguoi')"
+                                            class="text-red-600 flex items-center gap-2">
+                                            <LucideTriangleAlert class="w-5" /> Thông báo: Có 01 lỗi vi phạm !
                                         </DropdownItem>
-                                        <DropdownItem @click="navigateTo('/tai-khoan')">
-                                            <User class="w-5" /> Tài khoản
+                                        <DropdownItem @click="navigateTo('/tai-khoan')" class="flex items-center gap-2">
+                                            <LucideUser class="w-5" /> Tài khoản
                                         </DropdownItem>
-                                        <DropdownSeparator />
-                                        <DropdownItem>
-                                            <LogOut class="w-5" /> Đăng xuất
+                                        <DropdownItem class="flex items-center gap-2"
+                                            @click="loginType.toggleLoginType(DEFAULT)">
+                                            <LucideLogOut class="w-5" /> Đăng xuất
                                         </DropdownItem>
                                     </DropdownMenuContent>
                                 </DropdownMenuPortal>

@@ -67,7 +67,7 @@ const toggleState = ref(false)
                             </NuxtLink>
                         </div>
                         <div class="flex items-center gap-3">
-                            <DropdownMenuRoot class="z-[90] top-3 z-[199]" v-model:open="toggleState"
+                            <DropdownMenuRoot class="top-3 z-[199]" v-model:open="toggleState"
                                 v-if="loginType.loginType === NO_VIOLATION">
                                 <DropdownMenuTrigger
                                     class="rounded-full !w-10 !h-10 !p-0 relative inline-flex items-center justify-center bg-white outline-none"
@@ -75,7 +75,7 @@ const toggleState = ref(false)
                                     <img src="/images/avatar.png" class="rounded-full border-solid border-[1px] border-[#285398]" alt="" />
                                 </DropdownMenuTrigger>
                                 <DropdownMenuPortal>
-                                    <DropdownMenuContent class="bg-white flex flex-col gap-3 p-2 rounded-lg">
+                                    <DropdownMenuContent class="z-[199] bg-white flex flex-col gap-3 p-2 rounded-lg">
                                         <DropdownItem @click="navigateTo('/tai-khoan')" class="flex items-center gap-2">
                                             <LucideUser class="w-5" /> Tài khoản
                                         </DropdownItem>
@@ -98,7 +98,7 @@ const toggleState = ref(false)
                                     </div>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuPortal>
-                                    <DropdownMenuContent class="bg-white flex flex-col gap-3 p-2 rounded-lg">
+                                    <DropdownMenuContent class="z-[199] bg-white flex flex-col gap-3 p-2 rounded-lg">
                                         <DropdownItem v-if="loginType.loginType === HAS_VIOLATION"
                                             @click="navigateTo('/tra-cuu-phat-nguoi')"
                                             class="text-red-600 flex items-center gap-2">

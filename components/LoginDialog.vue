@@ -39,7 +39,7 @@
                     <div class="flex items-center justify-center gap-4 mt-5">
                         <button
                             class="!bg-[#285398] py-1 px-3 text-white rounded hover:opacity-85 transition-all hover:cursor-pointer"
-                            @click="loginType.isLoggedIn(true)">
+                            @click="loginType.toggleIsLoggedIn(true)">
                             Đăng nhập
                         </button>
                         <DialogClose>
@@ -47,6 +47,25 @@
                                 Huỷ
                             </button>
                         </DialogClose>
+                    </div>
+                </div>
+                <div v-if="loginType.isLoggedIn === true">
+                    <DialogTitle class="text-center text-green-500 font-semibold">
+                        Đăng nhập thành công !
+                    </DialogTitle>
+                    <DialogDescription size="2" mb="4" class="text-center my-5">
+                        <span>
+                            Đăng nhập thành công với số điện thoại
+                            <span class="font-semibold">037xxxxxxx</span>.
+                        </span>
+                    </DialogDescription>
+
+                    <div class="flex flex-col justify-center items-center">
+                        <button
+                            class="border-[1px] rounded border-gray-200 border-solid py-1 px-2 hover:opacity-85 transition-all"
+                            @click="loginType.toggleLoginType(NO_VIOLATION)">
+                            Đóng
+                        </button>
                     </div>
                 </div>
                 <DialogClose

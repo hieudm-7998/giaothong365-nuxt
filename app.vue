@@ -5,6 +5,8 @@
     <NoBGHeader v-else-if="!isHome && isDesktop" />
     <MobileNoBGHeader v-else-if="!isHome && !isDesktop" />
     <NuxtPage />
+    <ScrollToTop />
+    <Chatbot />
     <Footer />
   </div>
 </template>

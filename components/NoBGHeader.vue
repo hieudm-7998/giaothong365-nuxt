@@ -100,7 +100,7 @@ const userMenuOpen = ref(false)
                   <div class="flex justify-center" v-if="loginType.loginType === HAS_VIOLATION">
                     <DropdownMenuRoot v-model:open="userMenuOpen" class="z-[199]">
                       <DropdownMenuTrigger
-                        class="rounded-full relative h-10 w-10 inline-flex items-center justify-center outline-none hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black"
+                        class="rounded-full relative h-10 w-10 inline-flex items-center justify-center outline-none"
                         aria-label="Customise options">
                         <img src="/images/avatar.png" class="border-primary border-solid border-[1px] rounded-full" alt="">
                         <div
@@ -111,7 +111,7 @@ const userMenuOpen = ref(false)
   
                       <DropdownMenuPortal>
                         <DropdownMenuContent
-                          class="outline-none bg-white rounded-lg p-[5px] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                          class="z-[199] outline-none bg-white rounded-lg p-[5px] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
                           :side-offset="5">
                           <DropdownMenuItem value="New Tab"
                             class="group my-2 transition-all hover:opacity-50 text-[13px] hover:cursor-pointer leading-none text-red-500 gap-2 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
@@ -147,7 +147,7 @@ const userMenuOpen = ref(false)
   
                       <DropdownMenuPortal>
                         <DropdownMenuContent
-                          class="outline-none bg-white rounded-lg p-[5px] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                          class="z-[199] outline-none bg-white rounded-lg p-[5px] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
                           :side-offset="5">
                           <DropdownMenuItem value="New Tab"
                             class="group my-2 transition-all hover:opacity-50 text-[13px] hover:cursor-pointer leading-none text-black gap-2 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"

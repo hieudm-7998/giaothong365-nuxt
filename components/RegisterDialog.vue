@@ -117,7 +117,7 @@
                     </DialogDescription>
 
                     <div class="flex justify-center items-center">
-                        <button class="border-[1px] rounded border-gray-200 py-1 px-2 hover:opacity-85 transition-all"
+                        <button class="border-[1px] rounded border-gray-200 border-solid py-1 px-2 hover:opacity-85 transition-all"
                             @click="loginType.toggleLoginType(NO_VIOLATION)">
                             Đóng
                         </button>

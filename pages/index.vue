@@ -150,7 +150,7 @@
                 <h1 class="text-center text-3xl font-bold text-primary uppercase">
                     Tin tức
                 </h1>
-                <button class="text-[#3c73a7] font-semibold">
+                <button class="text-[#3c73a7] font-semibold" @click="router.push('/tin-tuc')">
                     Xem tất cả
                 </button>
             </div>
